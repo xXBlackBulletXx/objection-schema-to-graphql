@@ -18,7 +18,6 @@
   },
   "homepage": "https://github.com/xXBlackBulletXx/objection-schema-to-graphql#readme",
   "dependencies": {
-    "jsonschema2graphql": "^1.1.1",
     "lodash": "^4.17.20"
   },
   "devDependencies": {

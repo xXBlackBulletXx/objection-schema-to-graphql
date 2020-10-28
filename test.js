@@ -5,6 +5,8 @@ const graphqli = require('graphql')
 
 const schema = builder(jsonSchemas, graphqli)
 
+console.log(graphqli)
+
 const graphQlSchema = schema
 
 console.log(printSchema(graphQlSchema))
