@@ -3,16 +3,20 @@ const { map, forEach, mapKeys, reduce } = require('lodash')
 
 const entryPoints = (types, graphqli) => {
   // console.log(models)
-  const fields = {}
+  const queryFields = {}
   forEach(types, (type, key) => {
-    fields[key] = {
+    queryFields[key] = {
       type
     }
   })
   return {
     query: new graphqli.GraphQLObjectType({
       name: 'RootQuery',
-      fields
+      fields: queryFields
+    }),
+    mutation: new graphqli.GraphQLObjectType({
+      name: 'RootMutation',
+      fields: {}
     })
   }
 }
