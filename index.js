@@ -1,8 +1,7 @@
-const { GraphQLObjectType } = require('graphql')
 const { default: convert } = require('jsonschema2graphql')
 const { map, forEach, mapKeys, reduce } = require('lodash')
 
-const entryPoints = (types, models) => {
+const entryPoints = (types, graphqli) => {
   // console.log(models)
   const fields = {}
   forEach(types, (type, key) => {
@@ -11,19 +10,19 @@ const entryPoints = (types, models) => {
     }
   })
   return {
-    query: new GraphQLObjectType({
+    query: new graphqli.GraphQLObjectType({
       name: 'RootQuery',
       fields
     })
   }
 }
 
-const createSchema = (models) => {
+const createSchema = (models, graphqli) => {
   const schemas = map(models, model => ({
     $id: `#/${model.name}`,
     ...model.jsonSchema
   }))
-  const queryConvertion = convert({ jsonSchema: schemas, entryPoints: types => entryPoints(types, models) })
+  const queryConvertion = convert({ jsonSchema: schemas, entryPoints: types => entryPoints(types, graphqli) })
   return queryConvertion
 }
 
