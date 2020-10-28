@@ -1,0 +1,1 @@
+# objection-schema-to-graphql
