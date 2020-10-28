@@ -1,32 +1,37 @@
 const { default: convert } = require('jsonschema2graphql')
-const { map, forEach, mapKeys, reduce } = require('lodash')
+const { forEach } = require('lodash')
+const createQueries = require('./src/query')
+const { createJsonSchema } = require('./src/types')
 
-const entryPoints = (types, graphqli) => {
+const entryPoints = (types, graphqli, models) => {
   // console.log(models)
-  const queryFields = {}
+  const queryFields = createQueries(types, models)
+  const mutations = {}
   forEach(types, (type, key) => {
-    queryFields[key] = {
-      type
+    mutations[key] = {
+
     }
   })
+  // console.log(queryFields)
   return {
     query: new graphqli.GraphQLObjectType({
       name: 'RootQuery',
       fields: queryFields
     }),
-    mutation: new graphqli.GraphQLObjectType({
-      name: 'RootMutation',
-      fields: {}
-    })
+    // mutation: new graphqli.GraphQLObjectType({
+    //   name: 'RootMutation',
+    //   fields: {}
+    // })
   }
 }
 
 const createSchema = (models, graphqli) => {
-  const schemas = map(models, model => ({
-    $id: `#/${model.name}`,
-    ...model.jsonSchema
-  }))
-  const queryConvertion = convert({ jsonSchema: schemas, entryPoints: types => entryPoints(types, graphqli) })
+  const jsonSchema = createJsonSchema(models)
+  // console.log(schemas)
+  const queryConvertion = convert({
+    jsonSchema,
+    entryPoints: types => entryPoints(types, graphqli, models)
+  })
   return queryConvertion
 }
 
