@@ -1,0 +1,23 @@
+{
+  "name": "objection-schema-to-graphql",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xXBlackBulletXx/objection-schema-to-graphql.git"
+  },
+  "author": "xXBlackBulletXx",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xXBlackBulletXx/objection-schema-to-graphql/issues"
+  },
+  "homepage": "https://github.com/xXBlackBulletXx/objection-schema-to-graphql#readme",
+  "dependencies": {
+    "jsonschema2graphql": "^1.1.1",
+    "lodash": "^4.17.20"
+  }
+}
