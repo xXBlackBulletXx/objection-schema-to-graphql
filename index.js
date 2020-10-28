@@ -1,26 +1,29 @@
+const { GraphQLObjectType } = require('graphql')
 const { default: convert } = require('jsonschema2graphql')
-const { map } = require('lodash')
+const { map, forEach, mapKeys, reduce } = require('lodash')
 
-const entryPoints = types => {
-  console.log(types)
-  return {
-    query: {
-      name: 'RootQuery',
-      fields: {
-        
-      }
+const entryPoints = (types, models) => {
+  // console.log(models)
+  const fields = {}
+  forEach(types, (type, key) => {
+    fields[key] = {
+      type
     }
+  })
+  return {
+    query: new GraphQLObjectType({
+      name: 'RootQuery',
+      fields
+    })
   }
 }
 
 const createSchema = (models) => {
-  // console.log(convert)
   const schemas = map(models, model => ({
-    $id: model.name,
+    $id: `#/${model.name}`,
     ...model.jsonSchema
   }))
-  const queryConvertion = convert({ jsonSchema: schemas, entryPoints })
-  console.log(queryConvertion)
+  const queryConvertion = convert({ jsonSchema: schemas, entryPoints: types => entryPoints(types, models) })
   return queryConvertion
 }
 
