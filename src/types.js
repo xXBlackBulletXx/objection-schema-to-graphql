@@ -16,7 +16,8 @@ const getQueryTypes = (models) => {
           $ref: `#/${model.name}`
         }
       },
-      count: { type: 'number' }
+      count: { type: 'number' },
+      total: { type: 'number' }
     }
   }))
   return [
